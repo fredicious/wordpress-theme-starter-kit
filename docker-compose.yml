@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+  wordpress:
+    image: wordpress:latest
+    restart: always
+    volumes:
+       - ./theme:/var/www/html/wp-content/themes/MY_CUSTOM_THEME
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: MY_CUSTOM_THEME_USER
+      WORDPRESS_DB_PASSWORD: MY_CUSTOM_THEME_PASSWORD
+      WORDPRESS_DB_NAME: MY_CUSTOM_THEME_DB
+    ports:
+      - 8080:80
+  mysql:
+    image: mysql:5.7
+    restart: always
+    volumes:
+      - data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: MY_CUSTOM_THEME_DB
+      MYSQL_USER: MY_CUSTOM_THEME_USER
+      MYSQL_PASSWORD: MY_CUSTOM_THEME_PASSWORD
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+
+volumes:
+  data:
